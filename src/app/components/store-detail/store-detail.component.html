@@ -1,0 +1,54 @@
+<div class="store-detail" *ngIf="storeDetail$ | async as storeDetail; else loading">
+  <div class="detail-header">
+    <button class="btn btn-info btn-fab btn-icon btn-round go-back-button" routerLink="/">
+      <i class="tim-icons icon-minimal-left"></i>
+    </button>
+    <h1 class="title text-primary">{{ storeDetail.name }}</h1>
+  </div>
+
+  <div class="card card-no-border">
+    <div class="card-body">
+      <div class="description" [innerHTML]="storeDetail.description" *ngIf="storeDetail.description"></div>
+      <div class="games-info">
+        <div class="games-kpi">
+          <span class="games-number">{{ storeDetail.games_count | number }}</span>
+          <span class="games-label">juegos</span>
+        </div>
+        <a [href]="'https://' + storeDetail.domain" target="_blank" class="text-info">
+          Visitar tienda
+          <!-- External link icon -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-link">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-5" *ngIf="gameList$ | async as games; else loading">
+    <div class="row">
+      <div *ngFor="let game of games" class="col-md-4 col-sm-6" (click)="gameDetailsModal.showModal(game.id)">
+        <div class="game-card d-flex">
+          <div class="game-info">
+            <h5 class="game-name">{{ game.name }}</h5>
+            <span [ngClass]="getRatingClass(game.rating)" class="badge">{{ game.rating }}</span>
+            <div class="ratings-info">
+              <span>{{ game.ratings_count }}</span>
+              <span class="ratings-text">Valoraciones</span>
+            </div>
+          </div>
+          <div class="game-image">
+            <img [src]="game.background_image" alt="{{ game.name }}">
+          </div>
+        </div>
+      </div>
+    </div>
+    <game-details-modal #gameDetailsModal></game-details-modal>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading">Cargando...</div>
+</ng-template>

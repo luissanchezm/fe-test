@@ -1,0 +1,36 @@
+
+<div class="text-center brand">
+  <h1 class="h1-seo">GAMES<span class="text-primary">•</span></h1>
+  <h3>Descubre y explora las mejores <span class="text-primary">tiendas</span> de videojuegos</h3>
+</div>
+
+<div class="section row" *ngIf="stores$ | async as stores; else loading">
+
+  <div class="col-12 col-md-4" *ngFor="let store of stores">
+    <div class="card card-coin card-plain card-hover" [routerLink]="['/store-detail', store.id]">
+      <div class="card-header">
+        <img [src]="store.image_background" alt="{{ store.name }}" class="card-image img-center img-fluid">
+        <h3 class="title text-center">{{ store.name }}</h3>
+      </div>
+      <div class="card-body">
+        <div class="games-kpi">
+          <p class="games-number">{{ store.games_count | number }}</p>
+          <p class="games-label">Juegos</p>
+        </div>
+        <a [href]="'https://' + store.domain" target="_blank" class="text-info float-right" (click)="$event.stopPropagation()">
+          Visitar tienda
+          <!-- External link icon -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-link">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading">Cargando tiendas...</div>
+</ng-template>

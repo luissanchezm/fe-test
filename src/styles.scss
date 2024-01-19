@@ -1,0 +1,40 @@
+.loading {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.5em;
+  color: #FFFFFF;
+  animation: fadingText 2s infinite;
+  margin: 100px 0;
+  &.dark {
+    color: #000000;
+  }
+}
+
+@keyframes fadingText {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.modal.show .modal-dialog {
+  transform: translate(0, 50px) !important;
+  padding-bottom: 100px;
+
+  .rating-container {
+    .rating-value {
+      font-size: 1.5em;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+  }
+
+  .game-description {
+    font-size: 0.9em;
+  }
+
+  .release-date, .metacritic-score {
+    span {
+      font-weight: 600;
+    }
+  }
+
+}

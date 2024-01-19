@@ -1,0 +1,55 @@
+.card {
+  margin-bottom: 45px;
+  cursor: pointer;
+
+  &.card-hover {
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 8px 15px rgba(186, 84, 245, 0.5);
+      border-color: #ba54f5;
+
+      .title {
+        color: #ba54f5;
+      }
+    }
+  }
+
+  .card-header {
+    margin-bottom: 0;
+
+    .card-image {
+      max-height: 85px;
+      object-fit: cover;
+    }
+
+    .title {
+      color: #e14eca;
+      margin-top: 0.625rem;
+      margin-bottom: 0;
+      font-weight: 600;
+    }
+  }
+
+
+  .games-kpi {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+
+  .games-number {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .games-label {
+    font-size: 0.8rem;
+  }
+
+  .external-link {
+    vertical-align: top;
+  }
+
+}

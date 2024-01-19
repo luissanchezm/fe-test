@@ -1,0 +1,59 @@
+<div
+  bsModal
+  #gameModal="bs-modal"
+  class="modal fade game-details-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="gameModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <ng-container *ngIf="gameDetail$ | async as game; else loading">
+        <div class="modal-header">
+          <h1 class="modal-title font-weight-bold text-primary">{{ game.name }}</h1>
+          <button type="button" class="close" aria-label="Close" (click)="gameModal.hide()">
+            <i class="tim-icons icon-simple-remove"> </i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-4">
+            <!-- Carrusel de imágenes si hay más de una, de lo contrario, una imagen -->
+            <ng-container *ngIf="game.background_image_additional; else singleImage">
+              <carousel>
+                <slide *ngFor="let img of [game.background_image, game.background_image_additional]">
+                  <img [src]="img" alt="{{ game.name }}">
+                </slide>
+              </carousel>
+            </ng-container>
+            <ng-template #singleImage>
+              <img [src]="game.background_image" class="img-fluid" alt="{{ game.name }}">
+            </ng-template>
+          </div>
+
+          <!-- Rating -->
+          <div class="rating-container d-flex align-items-center mb-4">
+            <div class="progress-container progress-default flex-grow-1 mr-2">
+              <progressbar class="progress-bar-default" [value]="game.rating * 20"></progressbar>
+            </div>
+            <span class="rating-value text-default">{{ game.rating | number: '1.1-1' }}/5</span>
+          </div>
+
+          <!-- Descripción -->
+          <div [innerHTML]="game.description" class="game-description mb-3"></div>
+
+          <hr style="width: 100%">
+
+          <!-- Fecha de Lanzamiento y Metacritic -->
+          <p class="release-date mb-2">Fecha de lanzamiento: <span>{{ game.released | date }}</span></p>
+          <p class="metacritic-score">Calificación Metacritic: <span>{{ game.metacritic }}</span></p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading dark">Cargando juego...</div>
+</ng-template>
+
